@@ -9,12 +9,14 @@ var pwPrompts = {
   specialCharacters: ["!", "#","$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<=>", "?", "@", "[", "\\", "]", "^", "_", "`","{", "|", "}", "~"],
 
 }
+// Variable that holds the values of users options
+var userOptions = [];
+// Variable that holds length that user inputs
+var length = 0
 
 // Function to generate password with user options.
 function generatePassword () {
-  // Variable to store length
-  var length = window.prompt("How many characters would you like?")
-  // Condtional statement to check length.
+    length = parseInt(window.prompt("How many characters would you like?"))
   //Conditional statement to check if length is a number.
   if (isNaN(length)) {
     alert("Length must be provided as a number.");
@@ -30,35 +32,49 @@ function generatePassword () {
   var upperCase = window.confirm("Would you like any uppercase characters?")
   var numeric = window.confirm ("Would you like any numeric characters?")
   var specialChar = window.confirm ("Would you like any special characters?")
-
     //Conditional statement to check if users did not include any character types.
     if (lowerCase == false && upperCase == false && numeric == false && specialChar == false) {
       alert("At least one character type must be selected.")
       return;
     }
-    var userOptions = []
-    if (lowerCase == true) {
+
+    // Conditonal statement to check if users selected true and adds lowercase option into an array
+    if (
+      lowerCase == true) {
       userOptions = userOptions.concat(pwPrompts.lowerCaseChar)
     }
-    
-    var userOptions = []
+
+    // Conditonal statement to check if users selected true and adds uppercase option into an array
+
     if (upperCase == true) {
       userOptions = userOptions.concat(pwPrompts.upperCaseChar)
     }
-    
-    var userOptions = []
+
+    // Conditonal statement to check if users selected true and adds numeric characters into an array
     if (numeric == true) {
       userOptions = userOptions.concat(pwPrompts.numericChar)
     }
     
-    var userOptions = []
+    // Conditional statement to check if users selected true and adds special characters into an array
     if (specialChar == true) {
       userOptions = userOptions.concat(pwPrompts.specialCharacters)
-    }
+      console.log(userOptions)
+    } 
     
+    return getRandom(userOptions)  
 }
 
 
+// Function for getting a random element from array. 
+//For loop to repeat over password length 
+function getRandom(array) {
+  var finalPw = ""
+  for( var i=0; i < length; i++) {
+      var randIndex = Math.floor(Math.random() * array.length);
+      finalPw += userOptions[randIndex];
+    }
+    return finalPw;
+}
 
 
 // Write password to the #password input
@@ -67,7 +83,6 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
