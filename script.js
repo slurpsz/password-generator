@@ -11,12 +11,14 @@ var pwPrompts = {
 }
 // Variable that holds the values of users options
 var userOptions = [];
-// Variable that holds length that user inputs
-var length = 0
+// Variable that holds length
+var length = 0;
 
+var userResponse = [];
 // Function to generate password with user options.
 function generatePassword () {
     length = parseInt(window.prompt("How many characters would you like?"))
+  console.log(length)
   //Conditional statement to check if length is a number.
   if (isNaN(length)) {
     alert("Length must be provided as a number.");
@@ -32,6 +34,7 @@ function generatePassword () {
   var upperCase = window.confirm("Would you like any uppercase characters?")
   var numeric = window.confirm ("Would you like any numeric characters?")
   var specialChar = window.confirm ("Would you like any special characters?")
+
     //Conditional statement to check if users did not include any character types.
     if (lowerCase == false && upperCase == false && numeric == false && specialChar == false) {
       alert("At least one character type must be selected.")
@@ -59,9 +62,11 @@ function generatePassword () {
     if (specialChar == true) {
       userOptions = userOptions.concat(pwPrompts.specialCharacters)
       console.log(userOptions)
-    } 
+
     
-    return getRandom(userOptions)  
+  
+  }  
+    return getRandom(userOptions);  
 }
 
 
@@ -73,6 +78,7 @@ function getRandom(array) {
       var randIndex = Math.floor(Math.random() * array.length);
       finalPw += userOptions[randIndex];
     }
+    console.log(finalPw);
     return finalPw;
 }
 
@@ -87,3 +93,6 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+
+
